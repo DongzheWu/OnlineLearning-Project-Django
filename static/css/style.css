@@ -1804,7 +1804,8 @@ textarea:focus {
     width: 100%;
     height: auto;
     overflow: hidden;
-    margin-top: 35px;
+    margin-top: 17px;
+    background: rgba(225, 240, 252, 0.6);
 }
 
 .module .eachmod {
@@ -1815,6 +1816,24 @@ textarea:focus {
     position: relative;
     float: left;
     background: #fff;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    width: 225px;
+    height: 260px;
+    box-shadow: 0 0 1.5px 1.5px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+}
+
+.levelList{
+    font-family: open sans,helvetica neue,Helvetica,Arial,sans-serif;
+    float: left;
+    margin: 5px 12px 5px 5px;
+}
+
+
+.courseName{
+    text-align: center;
+    margin-top: 1px;
+    font-family: open sans,helvetica neue,Helvetica,Arial,sans-serif;
 }
 
 .module .left {
@@ -1838,11 +1857,6 @@ textarea:focus {
     width: 962px;
     height: 100%;
     float: right
-}
-
-.module .box img {
-    width: 100%;
-    transition: all 1s ease 0s;
 }
 
 .module .more {
@@ -1871,7 +1885,7 @@ textarea:focus {
 
 .module .key, .key {
     color: #fb8341 !important;
-    font-size: 14px;
+    font-weight: bold;
 }
 
 .module .right span {
@@ -1945,47 +1959,45 @@ textarea:focus {
     color: #717171;
 }
 
-.group_list .bottom {
-    position: absolute;
-    bottom: 0;
-    height: 30px;
+ .bottom {
+    position: relative;
     width: 100%;
 }
 
-.group_list .bottom span {
+ .bottom span {
     background: #f0f0f0;
     display: block;
     height: 100%;
-    line-height: 30px;
+    line-height: 25px;
     text-align: center;
     color: #9f9f9f;
 }
 
-.group_list .bottom .fl {
-    width: 70%;
+ .bottom .fl {
+    width: 100%;
 }
 
-.group_list .bottom .fr {
+ .bottom .fr {
     width: 29%;
     text-indent: 10px;
     cursor: pointer;
 }
 
-.group_list .bottom .star {
+.bottom .star {
     cursor: pointer;
     background: #f0f0f0 url(../images/star.png) no-repeat 10px center;
 }
 
-.group_list .bottom .collected {
+.bottom .collected {
     cursor: pointer;
     background: #f0f0f0 url(../images/star-hover.png) no-repeat 10px center;
 }
 
-.group_list .bottom .delete-group {
+.bottom .delete-group {
     background: #f0f0f0 url("../images/pic12.png") no-repeat center center;
 }
 
-.group_list .bottom .delete-group:hover {
+.bottom .delete-group:hover {
     background: #f0f0f0 url("../images/pic13.png") no-repeat center center;
 }
 
@@ -2000,131 +2012,23 @@ textarea:focus {
     color: #3d9328 !important;
 }
 
-.module1 .imgslide2 {
-    width: 470px;
-    height: 100%;
-    overflow: hidden;
-}
 
 .group_list .box:hover .imgslide2 img {
     opacity: 1;
     filter: Alpha(opacity=100);
 }
 
-.module1_2 img {
-    height: 100% !important;
+.courseImg{
+    width: 220px;
+    height: 170px;
 }
 
-.module1_3, .module1_5, .module1_6, .module1_7 {
-    margin-right: 10px;
-}
-
-.module1_5, .module1_6, .module1_7, .module1_8 {
+.module333{
+    margin-right: 20px;
+    margin-left: 20px;
     margin-top: 10px;
-}
 
-.module1_5, .module1_6 {
-    width: 229px !important;
 }
-
-.module2 {
-    height: 140px;
-    margin-top: 40px !important;
-}
-
-.module2 ul {
-    width: 100%;
-    height: 130px;
-    margin-top: 15px;
-    background: url(../images/pathbg.png) no-repeat center center;
-}
-
-.module2 li {
-    float: left;
-    width: 129px;
-    height: 129px;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    text-align: center;
-    position: relative;
-    z-index: 2;
-    transition: all 0.5s ease 0s;
-    margin-right: 82px;
-    background: #fff;
-}
-
-.module2 li:hover {
-    border: 1px solid #fbc241;
-    transform: rotateY(180deg);
-    transform-style: preserve-3d;
-}
-
-.module2 li:hover p {
-    color: #fff;
-}
-
-.module2 li .head {
-    color: #202020;
-    font-size: 14px;
-    position: absolute;
-    bottom: 30px;
-    width: 100%;
-    line-height: 20px;
-}
-
-.module2 .des {
-    display: none;
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    background: #fbc241;
-    position: absolute;
-    z-index: 5;
-    top: 0;
-}
-
-.module2 .path:hover .des {
-    display: block;
-    transform: rotateY(180deg);
-    transform-style: preserve-3d;
-}
-
-.module2 .des .head2 {
-    font-size: 14px;
-    margin-top: 30px;
-    font-weight: bold;
-}
-
-.module2 .des p {
-    color: #fff;
-    line-height: 20px;
-}
-
-.module2 .path1 {
-    background: #fff url(../images/path2.png) no-repeat center 30px;
-}
-
-.module2 .path2 {
-    background: #fff url(../images/path2.png) no-repeat center 30px;
-}
-
-.module2 .path3 {
-    background: #fff url(../images/path3.png) no-repeat center 30px;
-}
-
-.module2 .path4 {
-    background: #fff url(../images/path4.png) no-repeat center 30px;
-}
-
-.module2 .path5 {
-    background: #fff url(../images/path5.png) no-repeat center 30px;
-}
-
-.module2 .path6 {
-    background: #fff url(../images/path6.png) no-repeat center 30px;
-    margin: 0;
-}
-
 
 .module3 {
     height: 465px;
