@@ -36,9 +36,8 @@
         <div class="wp">
             <div class="module1 eachmod">
                 <div class="module1_1 left">
-                    <img width="228" height="614" src="/static/images/module1_1.jpg"/>
-                    <p class="fisrt_word">名师授课<br/>专业权威</p>
-                    <a class="more" href="{% url 'course:course_list' %}">查看更多课程 ></a>
+                    <img width="228" height="614" src="/static/images/new/book.jpg"/>
+                    <a class="more" href="{% url 'course:course_list' %}">Learn More</a>
                 </div>
 {#{{ forloop.counter|add:2 }}#}
                     {% for course in courses %}
@@ -55,7 +54,7 @@
                         </div>
                         <div class="bottom">
                             <span class="fl" title="{{ course.course_org.name }}">{{ course.course_org.name }}</span>
-                            <span class="star fl">{{ course.fav_nums }}</span>
+                            <span class="star fr">{{ course.fav_nums }}</span>
                         </div>
                     </div>
                     {% endfor %}
