@@ -14,7 +14,7 @@
                 <ul class="imgs">
                     {% for banner in all_banners %}
                     <li>
-                            <a href="{{ banner.url }}">
+                            <a href="{% url 'index' %}">
                                 <img width="1200" height="478" src="{{ MEDIA_URL }}{{ banner.image }}" />
                             </a>
                         </li>
@@ -54,7 +54,7 @@
                         </div>
                         <div class="bottom">
                             <span class="fl" title="{{ course.course_org.name }}">{{ course.course_org.name }}</span>
-                            <span class="star fr">{{ course.fav_nums }}</span>
+                            <span class="star fr">&nbsp;&nbsp;&nbsp;{{ course.fav_nums }}</span>
                         </div>
                     </div>
                     {% endfor %}

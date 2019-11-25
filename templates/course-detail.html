@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% block title %}Course List Online-Learning{% endblock %}
+{% load staticfiles %}
+{% block custom_bread %}
+    <section>
+	<div class="wp">
+		<div class="crumbs">
+			<ul>
+				<li><a href="/">Home</a>></li>
+                <li><a href="{% url 'course:course_list' %}">Courses</a>></li>
+				<li>Course Detail</li>
+			</ul>
+		</div>
+	</div>
+</section>
+{% endblock %}
+
+
+{% block content %}
+    <section>
+	<div class="wp">
+		<div class="groupPurchase_detail detail">
+			<div class="toppro">
+				<div class="left">
+					<div class="picbox">
+						<div class="tb-booth tb-pic">
+							<img width="440" height="445" src="{{ MEDIA_URL }}{{ course.image }}" class="jqzoom" />
+						</div>
+
+					</div>
+					<div class="des">
+						<h1 title="django">{{ course.name }}</h1>
+						<span class="key">{{ course.desc }}</span>
+						<div class="prize">
+							<span class="fl">Level: <i class="key">{{ course.get_degree_display }}</i></span>
+							<span class="fr">Students: {{ course.students }}</span>
+						</div>
+						<ul class="parameter">
+							<li><span class="pram word3">Duration: &nbsp;</span><span>{{ course.learn_times }}</span></li>
+                            <li><span class="pram word3">Number of chapters: &nbsp;</span><span>{{ course.get_zj_nums }}</span></li>
+                            <li><span class="pram word3">Category: &nbsp;</span><span title="">{{ course.category }}</span></li>
+							<li class="piclist"><span class="pram word4">Studying Users: &nbsp;</span>
+                                {% for user_course in course.get_learn_users %}
+                                    <span class="pic"><img width="40" height="40" src="{{ MEDIA_URL }}{{ user_course.user.image }}"/></span>
+                                {% endfor %}
+							</li>
+						</ul>
+						<div class="btns">
+							<div class="btn colectgroupbtn"  id="jsLeftBtn">
+                                  {% if has_fav_course %}Favorite{% else %}Favorited{% endif %}
+                            </div>
+                                <a class="startstudy" href="{% url 'course:course_info' course.id %}"><div class="buy btn">Start</div></a>
+						</div>
+					</div>
+				</div>
+				<div class="right">
+					<div class="head">
+						<h1>University</h1>
+						<p>Top University</p>
+					</div>
+					<div class="pic">
+                        <a href="{% url 'org:org_home' course.course_org.id %}">
+                            <img width="150" height="80" src="{{ MEDIA_URL }}{{ course.course_org.image }}"/>
+                        </a>
+                    </div>
+
+					<div class="btn  notlogin
+					     "data-favid="14" id="jsRightBtn">
+                         {% if has_fav_org %}Favorited{% else %}Favorite{% endif %}
+                    </div>
+					<div class="clear">
+						<ul>
+                            <li>
+                                <span>Number of Courses:  {{ course.course_org.course_nums }}</span>
+                            </li>
+                            <li>
+                                <span>Number of Instructors  {{ course.course_org.get_teacher_nums }}</span>
+                            </li>
+							<li>Area&nbsp;&nbsp;{{ course.course_org.address }}</li>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+    <section>
+	<div class="wp">
+		<div class="list groupPurchase_detail_pro">
+			<div class="left layout">
+				<div class="head">
+					<ul class="tab_header">
+						<li class="active">Course Detail</li>
+					</ul>
+				</div>
+				<div class="tab_cont tab_cont1">
+                    {% autoescape off %}
+					{{ course.detail }}
+                    {% endautoescape %}
+				</div>
+				<div class="tab_cont tab_cont2" >
+					<div class="comment">
+						<div class="comenlist">
+
+	                    </div>
+					</div>
+				</div>
+			</div>
+			<div class="right layout">
+				<div class="head">Recommended Courses</div>
+                <div class="group_recommend">
+                    {% for relate_course in relate_coures %}
+                        <dl>
+                            <dt>
+                                <a target="_blank" href="">
+                                    <img width="240" height="220" class="scrollLoading" src="{{ MEDIA_URL }}{{ relate_course.image }}"/>
+                                </a>
+                            </dt>
+                            <dd>
+                                <a target="_blank" href=""><h2> {{ relate_course.name }}</h2></a>
+                                <span class="fl">Duration:<i class="key">{{ relate_course.learn_times }}</i></span>
+                            </dd>
+                        </dl>
+                    {% endfor %}
+
+
+                </div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
+
+{% block custom_js %}
+<script type="text/javascript">
+
+function add_fav(current_elem, fav_id, fav_type){
+    $.ajax({
+        cache: false,
+        type: "POST",
+        url:"{% url "org:add_fav" %}",
+        data:{'fav_id':fav_id, 'fav_type':fav_type},
+        async: true,
+        beforeSend:function(xhr, settings){
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+        },
+        success: function(data) {
+            if(data.status == 'fail'){
+                if(data.msg == 'The user not log in yet'){
+                    window.location.href="/login/";
+                }else{
+                    alert(data.msg)
+                }
+            }else if(data.status == 'success'){
+                current_elem.text(data.msg)
+            }
+        },
+    });
+}
+$('#jsLeftBtn').on('click', function(){
+    add_fav($(this), {{ course.id }}, 1);
+});
+$('#jsRightBtn').on('click', function(){
+    add_fav($(this), {{ course.course_org.id }}, 2);
+});
+</script>
+
+{% endblock %}

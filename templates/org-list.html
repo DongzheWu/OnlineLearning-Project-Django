@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% block title %}CourseList Online-learning{% endblock %}
+{% load staticfiles %}
+{% block custom_bread %}
+    <section>
+        <div class="wp">
+            <ul  class="crumbs">
+                <li><a href="/">Home</a>></li>
+                <li>Universities</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block content %}
+<section>
+	<div class="wp butler_list_box list">
+	<div class='left'>
+		<div class="listoptions">
+			<ul>
+				<li>
+					<h2>Area</h2>
+					<div class="more">More</div>
+					<div class="cont">
+                        <a href="?ct={{ category }}"><span class="{% ifequal city_id '' %}active2{% endifequal %}">All</span></a>
+                            {% for city in all_citys %}
+                                <a href="?city={{ city.id }}&ct={{ category }}"><span class="{% ifequal city_id city.id|stringformat:"i" %}active2{% endifequal %}">{{ city.name }}</span></a>
+                            {% endfor %}
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="butler_list company list">
+		<div class="layout">
+			<div class="head">
+				<ul class="tab_header">
+					<li class="{% if sort == '' %}active{% endif %}"><a href="?ct={{ category }}&city={{ city_id }}">All</a> </li>
+					<li class="{% if sort == 'students' %}active{% endif %}"><a href="?sort=students&ct={{ category }}&city={{ city_id }}">Number of Studnets &#8595;</a></li>
+					<li class="{% if sort == 'courses' %}active{% endif %}"><a href="?sort=courses&ct={{ category }}&city={{ city_id }}">Number of Courses &#8595;</a></li>
+				</ul>
+			</div>
+            {% for course_org in all_orgs.object_list %}
+                <dl class="des difdes">
+                    <dt>
+                        <a href="{% url 'org:org_home' course_org.id %}">
+                            <img width="200" height="120" class="scrollLoading" data-url="{{ MEDIA_URL }}{{ course_org.image }}"/>
+                        </a>
+                    </dt>
+                    <dd>
+                        <div class="clearfix">
+                             <a href="{% url 'org:org_home' course_org.id %}">
+                                 <h1>{{ course_org.name }}</h1>
+                             </a>
+                        </div>
+                        <ul class="cont">
+                            <li class="first"><p class="pic9">Number of Courses: <span>{{ course_org.get_course_num }}</span></p></li>
+                            <li class="c8" style="padding-left:18px;">{{ course_org.address }}</li>
+                            <li class="pic10" style="padding-left:18px;">Courses：
+                                    {% for course in course_org.get_course %}
+
+                                    <a href="{% url 'course:course_detail' course.id %}">{{ course.name }}</a>
+                                    {% endfor%}
+
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+            {% endfor %}
+		</div>
+		 <div class="pageturn">
+            <ul class="pagelist">
+                {% if all_orgs.has_previous %}
+                    <li class="long"><a href="?{{ all_orgs.previous_page_number.querystring }}">Prev</a></li>
+                {% endif %}
+
+                {% for page in all_orgs.pages %}
+                    {% if page %}
+                        {% ifequal page all_orgs.number %}
+                            <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                        {% else %}
+                            <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                        {% endifequal %}
+                    {% else %}
+                        <li class="none"><a href="">...</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if all_orgs.has_next %}
+                    <li class="long"><a href="?{{ all_orgs.next_page_number.querystring }}">Next</a></li>
+                {% endif %}
+
+            </ul>
+        </div>
+		</div>
+	</div>
+
+
+		<div class="right companyrank layout">
+			<div class="head">Ranking</div>
+
+            {% for curent_org in hot_orgs %}
+                <dl class="des">
+                    <dt class="num fl">{{ forloop.counter }}</dt>
+                    <dd>
+                        <a href="{% url 'org:org_home' curent_org.id %}"><h1>{{ curent_org.name }}</h1></a>
+                        <p>{{ curent_org.address }}</p>
+                    </dd>
+                </dl>
+            {% endfor %}
+
+
+
+		</div>
+        </div>
+</section>
+{% endblock %}
+
+{% block custom_js %}
+<script>
+    $(function(){
+        $('#jsStayBtn').on('click', function(){
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url:"{% url "org:add_ask" %}",
+                data:$('#jsStayForm').serialize(),
+                async: true,
+                success: function(data) {
+                    if(data.status == 'success'){
+                        $('#jsStayForm')[0].reset();
+                        alert("Submitted successfully")
+                    }else if(data.status == 'fail'){
+                        $('#jsCompanyTips').html(data.msg)
+                    }
+                },
+            });
+        });
+    })
+</script>
+{% endblock %}
